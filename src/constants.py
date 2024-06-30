@@ -1,4 +1,5 @@
-class Constants:
-    # DB Table Names
-
-    pass
+ACCOUNT_TABLE_NAME = "accounts"
+ACCOUNT_TYPE_TABLE_NAME = "account_types"
+CURRENCY_TABLE_NAME = "currencies"
+COUNTRY_TABLE_NAME = "countries"
+MIDDLEWARE_TABLE_NAME = "middlewares"

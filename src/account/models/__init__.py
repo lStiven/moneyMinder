@@ -1,0 +1,1 @@
+from .account_type_model import AccountTypeModel

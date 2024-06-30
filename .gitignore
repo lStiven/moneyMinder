@@ -110,6 +110,6 @@ venv.bak/
 
 # Drawio
 *.drawio.bkp
-
-# firebase
-firebase-adminsdk.json
+# alembic version file
+alembic/versions/*
+alembic/README
