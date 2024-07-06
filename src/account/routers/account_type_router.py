@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 
 from src.account.dependencies import get_account_type_service
 from src.account.schemas.account_type_schema import AccountTypeSchema, AccountTypeSchemaResponse
-from src.account.services.account_type_service import AccountTypeService
+from src.account.services import AccountTypeService
 
 account_type_router = APIRouter(tags=["Account Type"])
 

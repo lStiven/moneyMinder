@@ -1,8 +1,8 @@
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.account.repositories.account_type_repository import AccountTypeRepository
-from src.account.services.account_type_service import AccountTypeService
+from src.account.repositories import AccountTypeRepository, CountryRepository, CurrencyRepository
+from src.account.services import AccountTypeService, CountryService, CurrencyService
 from src.database import get_session
 
 
@@ -14,3 +14,19 @@ def get_account_type_service(
     account_type_repository: AccountTypeRepository = Depends(get_account_type_repository),
 ) -> AccountTypeService:
     return AccountTypeService(account_type_repository)
+
+
+async def get_country_repository(db_session: AsyncSession = Depends(get_session)) -> CountryRepository:
+    return CountryRepository(db_session)
+
+
+def get_country_service(country_repository: CountryRepository = Depends(get_country_repository)):
+    return CountryService(country_repository)
+
+
+async def get_currency_repository(db_session: AsyncSession = Depends(get_session)) -> CurrencyRepository:
+    return CurrencyRepository(db_session)
+
+
+def get_currency_service(currency_repository: CurrencyRepository = Depends(get_currency_repository)):
+    return CurrencyService(currency_repository)

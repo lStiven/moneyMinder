@@ -1,23 +1,23 @@
 from dataclasses import dataclass
 
-from src.account.models import AccountType
-from src.account.schemas.account_type_schema import AccountTypeSchema
+from src.account.models import Country
+from src.account.schemas.country_schema import CountrySchema
 from src.base.models import BaseDtoModel
 
 
 @dataclass
-class AccountTypeDto(BaseDtoModel):
+class CountryDto(BaseDtoModel):
     name: str
     code: str
-    icon: str
+    phone_code: str
 
     @classmethod
-    def from_schema(cls, schema: AccountTypeSchema):
+    def from_schema(cls, schema: CountrySchema):
         return cls(
             id=None,
             name=schema.name,
             code=schema.code,
-            icon=schema.icon,
+            phone_code=schema.phone_code,
             is_active=None,
             created_at=None,
             updated_at=None,
@@ -26,12 +26,12 @@ class AccountTypeDto(BaseDtoModel):
         )
 
     @classmethod
-    def from_model(cls, model: AccountType):
+    def from_model(cls, model: Country):
         return cls(
             id=model.id,
             name=model.name,
             code=model.code,
-            icon=model.icon,
+            phone_code=model.phone_code,
             is_active=model.is_active,
             created_at=model.created_at,
             updated_at=model.updated_at,
@@ -39,12 +39,12 @@ class AccountTypeDto(BaseDtoModel):
             updated_by=model.updated_by,
         )
 
-    def to_model(self) -> AccountType:
-        return AccountType(
+    def to_model(self) -> Country:
+        return Country(
             id=self.id,
             name=self.name,
             code=self.code,
-            icon=self.icon,
+            phone_code=self.phone_code,
             is_active=self.is_active,
             created_at=self.created_at,
             updated_at=self.updated_at,

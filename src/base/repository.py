@@ -25,7 +25,8 @@ class BaseRepository:
         return result.scalars().all()
 
     async def get_by_id(self, model_cls: Type, model_id):
-        return await self.db_session.get(model_cls, model_id)
+        result = await self.db_session.get(model_cls, model_id)
+        return result
 
     async def filter(self, model_cls: Type, **kwargs) -> List:
         query = select(model_cls).filter_by(**kwargs)

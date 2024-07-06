@@ -1,7 +1,7 @@
 from typing import List
 
-from src.account.dtos.account_type_dto import AccountTypeDto
-from src.account.repositories.account_type_repository import AccountTypeRepository
+from src.account.dtos import AccountTypeDto
+from src.account.repositories import AccountTypeRepository
 from src.account.schemas.account_type_schema import AccountTypeSchema
 
 
