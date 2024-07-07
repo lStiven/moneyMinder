@@ -1,3 +1,4 @@
+from .account_repository import AccountRepository
 from .account_type_repository import AccountTypeRepository
 from .country_repository import CountryRepository
 from .currency_repository import CurrencyRepository

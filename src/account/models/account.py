@@ -10,7 +10,7 @@ class Account(BaseModel):
 
     name: Mapped[str] = Column(String, index=True)
     account_type_id: Mapped[int] = mapped_column(ForeignKey("account_type.id"))
-    curency_id: Mapped[int] = mapped_column(ForeignKey("currency.id"))
+    currency_id: Mapped[int] = mapped_column(ForeignKey("currency.id"))
     initial_balance: Mapped[float] = Column(Float, default=0.0)
     balance: Mapped[float] = Column(Float, default=0.0)
     color: Mapped[str] = Column(String, default="#000000")

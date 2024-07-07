@@ -73,3 +73,22 @@ class AccountDto(BaseDtoModel):
             created_by=self.created_by,
             updated_by=self.updated_by,
         )
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "account_type_id": self.account_type_id,
+            "currency_id": self.currency_id,
+            "initial_balance": self.initial_balance,
+            "balance": self.balance,
+            "color": self.color,
+            "image": self.image,
+            "is_active": self.is_active,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+            "created_by": self.created_by,
+            "updated_by": self.updated_by,
+            "currency": self.currency.to_dict() if self.currency else None,
+            "account_type": self.account_type.to_dict() if self.account_type else None,
+        }
