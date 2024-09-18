@@ -5,8 +5,9 @@ from fastapi import APIRouter, Depends
 from src.account.dependencies import get_currency_service
 from src.account.schemas.currency_schema import CurrencySchema, CurrencySchemaResponse
 from src.account.services import CurrencyService
+from src.auth.dependencies import get_current_user
 
-currency_router = APIRouter(tags=["Currency"])
+currency_router = APIRouter(tags=["Currency"], dependencies=[Depends(get_current_user)])
 
 
 @currency_router.get("/currency", response_model=List[CurrencySchemaResponse])

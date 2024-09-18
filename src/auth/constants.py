@@ -1,0 +1,5 @@
+TOKEN_TYPE_ACCESS = "access"
+TOKEN_TYPE_REFRESH = "refresh"
+USER_TABLE_NAME = "user"
+TOKENS_REVOKE_TABLE_NAME = "tokens_revoke"
+BEARER_TYPE = "Bearer"

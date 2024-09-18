@@ -9,7 +9,7 @@ class AccountService:
     def __init__(self, account_repository: AccountRepository):
         self.account_repository = account_repository
 
-    async def get_account(self, account_id: str) -> dict:
+    async def get_account(self, account_id: int) -> dict:
         account_dto = await self.account_repository.get(account_id)
         return account_dto.to_dict() if account_dto else None
 
@@ -21,9 +21,9 @@ class AccountService:
         account_dto = await self.account_repository.create(AccountDto.from_schema(account))
         return account_dto.to_dict()
 
-    async def update_account(self, account_id: str, account: AccountSchema) -> dict:
+    async def update_account(self, account_id: int, account: AccountSchema) -> dict:
         account_dto: AccountDto = await self.account_repository.update(account_id, AccountDto.from_schema(account))
         return account_dto.to_dict()
 
-    async def delete_account(self, account_id: str) -> bool:
+    async def delete_account(self, account_id: int) -> bool:
         return await self.account_repository.delete(account_id)

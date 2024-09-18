@@ -9,7 +9,7 @@ class CountryService:
     def __init__(self, country_repository: CountryRepository):
         self.country_repository = country_repository
 
-    async def get_country(self, country_id: str) -> dict:
+    async def get_country(self, country_id: int) -> dict:
         country_dto = await self.country_repository.get(country_id)
         return country_dto.to_dict() if country_dto else None
 
@@ -21,9 +21,9 @@ class CountryService:
         country_dto = await self.country_repository.create(CountryDto.from_schema(country))
         return country_dto.to_dict()
 
-    async def update_country(self, country_id: str, country: CountrySchema) -> dict:
+    async def update_country(self, country_id: int, country: CountrySchema) -> dict:
         country_dto: CountryDto = await self.country_repository.update(country_id, CountryDto.from_schema(country))
         return country_dto.to_dict()
 
-    async def delete_country(self, country_id: str) -> bool:
+    async def delete_country(self, country_id: int) -> bool:
         return await self.country_repository.delete(country_id)

@@ -32,9 +32,9 @@ def get_currency_service(currency_repository: CurrencyRepository = Depends(get_c
     return CurrencyService(currency_repository)
 
 
-def get_account_repository(db_session: AsyncSession = Depends(get_session)) -> AccountRepository:
+async def get_account_repository(db_session: AsyncSession = Depends(get_session)) -> AccountRepository:
     return AccountRepository(db_session)
 
 
-async def get_account_service(account_repository: AccountRepository = Depends(get_account_repository)):
+def get_account_service(account_repository: AccountRepository = Depends(get_account_repository)):
     return AccountService(account_repository)

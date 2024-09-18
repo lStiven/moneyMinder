@@ -29,7 +29,7 @@ class AccountTypeRepository(BaseRepository):
         record = await self.add_and_commit(account_type_model)
         return AccountTypeDto.from_model(record)
 
-    async def update(self, account_type_id: str, account_type: AccountTypeDto) -> AccountTypeDto:
+    async def update(self, account_type_id: int, account_type: AccountTypeDto) -> AccountTypeDto:
         response = await self.get_by_id(AccountType, account_type_id)
         if response.code != account_type.code:
             self.account_type_validation(account_type)
@@ -40,7 +40,7 @@ class AccountTypeRepository(BaseRepository):
         await self.commit_and_refresh(response)
         return AccountTypeDto.from_model(response)
 
-    async def delete(self, account_type_id: str) -> bool:
+    async def delete(self, account_type_id: int) -> bool:
         account_type = await self.get_by_id(AccountType, account_type_id)
         if account_type:
             return await self.delete_record(account_type)

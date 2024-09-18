@@ -29,7 +29,7 @@ class CountryRepository(BaseRepository):
         record = await self.add_and_commit(country_model)
         return CountryDto.from_model(record)
 
-    async def update(self, country_id: str, country: CountryDto) -> CountryDto:
+    async def update(self, country_id: int, country: CountryDto) -> CountryDto:
         response = await self.get_by_id(Country, country_id)
         if response.code != country.code:
             self.country_validation(country)
@@ -40,7 +40,7 @@ class CountryRepository(BaseRepository):
         await self.commit_and_refresh(response)
         return CountryDto.from_model(response)
 
-    async def delete(self, country_id: str) -> bool:
+    async def delete(self, country_id: int) -> bool:
         country = await self.get_by_id(Country, country_id)
         if country:
             return await self.delete_record(country)

@@ -9,6 +9,11 @@ class BaseRepository:
     def __init__(self, db_session: AsyncSession):
         self.db_session = db_session
 
+    async def bulk_insert(self, model_instances: List):
+        self.db_session.add_all(model_instances)
+        await self.db_session.commit()
+        return model_instances
+
     async def add_and_commit(self, model_instance):
         self.db_session.add(model_instance)
         await self.db_session.commit()
@@ -40,5 +45,13 @@ class BaseRepository:
 
     async def delete_record(self, model_instance):
         await self.db_session.delete(model_instance)
+        await self.db_session.commit()
+        return True
+
+    async def delet_by_filter(self, model_cls: Type, **kwargs):
+        query = select(model_cls).filter_by(**kwargs)
+        result = await self.db_session.execute(query)
+        for row in result.scalars().all():
+            await self.db_session.delete(row)
         await self.db_session.commit()
         return True

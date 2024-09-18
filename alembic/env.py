@@ -20,6 +20,7 @@ if config.config_file_name is not None:
 
 
 from src.account.models import *
+from src.auth.models import *
 
 # add your model's MetaData object here
 # for 'autogenerate' support

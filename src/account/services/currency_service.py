@@ -9,7 +9,7 @@ class CurrencyService:
     def __init__(self, currency_repository: CurrencyRepository):
         self.currency_repository = currency_repository
 
-    async def get_currency(self, currency_id: str) -> dict:
+    async def get_currency(self, currency_id: int) -> dict:
         currency_dto = await self.currency_repository.get(currency_id)
         return currency_dto.to_dict() if currency_dto else None
 
@@ -21,11 +21,11 @@ class CurrencyService:
         currency_dto = await self.currency_repository.create(CurrencyDto.from_schema(currency))
         return currency_dto.to_dict()
 
-    async def update_currency(self, currency_id: str, currency: CurrencySchema) -> dict:
+    async def update_currency(self, currency_id: int, currency: CurrencySchema) -> dict:
         currency_dto: CurrencyDto = await self.currency_repository.update(
             currency_id, CurrencyDto.from_schema(currency)
         )
         return currency_dto.to_dict()
 
-    async def delete_currency(self, currency_id: str) -> bool:
+    async def delete_currency(self, currency_id: int) -> bool:
         return await self.currency_repository.delete(currency_id)

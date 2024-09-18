@@ -29,7 +29,7 @@ class CurrencyRepository(BaseRepository):
         record = await self.add_and_commit(currency_model)
         return CurrencyDto.from_model(record)
 
-    async def update(self, currency_id: str, currency: CurrencyDto) -> CurrencyDto:
+    async def update(self, currency_id: int, currency: CurrencyDto) -> CurrencyDto:
         response = await self.get_by_id(Currency, currency_id)
         if response.code != currency.code:
             self.currency_validation(currency)
@@ -40,7 +40,7 @@ class CurrencyRepository(BaseRepository):
         await self.commit_and_refresh(response)
         return CurrencyDto.from_model(response)
 
-    async def delete(self, currency_id: str) -> bool:
+    async def delete(self, currency_id: int) -> bool:
         currency = await self.get_by_id(Currency, currency_id)
         if currency:
             return await self.delete_record(currency)

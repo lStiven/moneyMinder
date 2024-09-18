@@ -28,7 +28,7 @@ class AccountRepository(BaseRepository):
         record = await self.add_and_commit(account_model)
         return AccountDto.from_model(record)
 
-    async def update(self, account_id: str, account: AccountDto) -> AccountDto:
+    async def update(self, account_id: int, account: AccountDto) -> AccountDto:
         response = await self.get_by_id(Account, account_id)
         if response.code != account.code:
             self.account_validation(account)
@@ -39,13 +39,13 @@ class AccountRepository(BaseRepository):
         await self.commit_and_refresh(response)
         return AccountDto.from_model(response)
 
-    async def delete(self, account_id: str) -> bool:
+    async def delete(self, account_id: int) -> bool:
         account = await self.get_by_id(Account, account_id)
         if account:
             return await self.delete_record(account)
         raise HTTPException(status_code=404, detail="Account not found")
 
-    async def get_by_code(self, code: str) -> AccountDto:
+    async def get_by_code(self, code: int) -> AccountDto:
         account = await self.get_or_none(Account, code=code)
         return AccountDto.from_model(account) if account else None
 

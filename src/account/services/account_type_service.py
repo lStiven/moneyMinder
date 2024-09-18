@@ -9,7 +9,7 @@ class AccountTypeService:
     def __init__(self, account_type_repository: AccountTypeRepository):
         self.account_type_repository = account_type_repository
 
-    async def get_account_type(self, account_type_id: str) -> dict:
+    async def get_account_type(self, account_type_id: int) -> dict:
         account_type_dto = await self.account_type_repository.get(account_type_id)
         return account_type_dto.to_dict() if account_type_dto else None
 
@@ -21,11 +21,11 @@ class AccountTypeService:
         account_type_dto = await self.account_type_repository.create(AccountTypeDto.from_schema(account_type))
         return account_type_dto.to_dict()
 
-    async def update_account_type(self, account_type_id: str, account_type: AccountTypeSchema) -> dict:
+    async def update_account_type(self, account_type_id: int, account_type: AccountTypeSchema) -> dict:
         account_type_dto: AccountTypeDto = await self.account_type_repository.update(
             account_type_id, AccountTypeDto.from_schema(account_type)
         )
         return account_type_dto.to_dict()
 
-    async def delete_account_type(self, account_type_id: str) -> bool:
+    async def delete_account_type(self, account_type_id: int) -> bool:
         return await self.account_type_repository.delete(account_type_id)

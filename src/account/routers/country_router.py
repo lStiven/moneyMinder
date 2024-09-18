@@ -5,8 +5,9 @@ from fastapi import APIRouter, Depends
 from src.account.dependencies import get_country_service
 from src.account.schemas.country_schema import CountrySchema, CountrySchemaResponse
 from src.account.services import CountryService
+from src.auth.dependencies import get_current_user
 
-country_router = APIRouter(tags=["Country"])
+country_router = APIRouter(tags=["Country"], dependencies=[Depends(get_current_user)])
 
 
 @country_router.get("/country", response_model=List[CountrySchemaResponse])
