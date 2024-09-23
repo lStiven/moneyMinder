@@ -3,8 +3,8 @@ from typing import List
 from sqlalchemy import Column, String
 from sqlalchemy.orm import Mapped, relationship
 
+from src.account.constants import COUNTRY_TABLE_NAME
 from src.base.models import BaseModel
-from src.constants import COUNTRY_TABLE_NAME
 
 
 class Country(BaseModel):

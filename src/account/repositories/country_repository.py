@@ -31,6 +31,8 @@ class CountryRepository(BaseRepository):
 
     async def update(self, country_id: int, country: CountryDto) -> CountryDto:
         response = await self.get_by_id(Country, country_id)
+        if not response:
+            raise HTTPException(status_code=404, detail="Country not found")
         if response.code != country.code:
             self.country_validation(country)
         for key, value in country.to_dict().items():

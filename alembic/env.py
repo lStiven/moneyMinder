@@ -27,6 +27,7 @@ from src.auth.models import *
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from src.base.models import Base
+from src.record.models import *
 
 target_metadata = Base.metadata
 

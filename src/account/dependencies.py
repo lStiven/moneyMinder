@@ -10,7 +10,7 @@ async def get_account_type_repository(db_session: AsyncSession = Depends(get_ses
     return AccountTypeRepository(db_session)
 
 
-def get_account_type_service(
+async def get_account_type_service(
     account_type_repository: AccountTypeRepository = Depends(get_account_type_repository),
 ) -> AccountTypeService:
     return AccountTypeService(account_type_repository)
@@ -20,7 +20,7 @@ async def get_country_repository(db_session: AsyncSession = Depends(get_session)
     return CountryRepository(db_session)
 
 
-def get_country_service(country_repository: CountryRepository = Depends(get_country_repository)):
+async def get_country_service(country_repository: CountryRepository = Depends(get_country_repository)):
     return CountryService(country_repository)
 
 
@@ -28,7 +28,7 @@ async def get_currency_repository(db_session: AsyncSession = Depends(get_session
     return CurrencyRepository(db_session)
 
 
-def get_currency_service(currency_repository: CurrencyRepository = Depends(get_currency_repository)):
+async def get_currency_service(currency_repository: CurrencyRepository = Depends(get_currency_repository)):
     return CurrencyService(currency_repository)
 
 
@@ -36,5 +36,5 @@ async def get_account_repository(db_session: AsyncSession = Depends(get_session)
     return AccountRepository(db_session)
 
 
-def get_account_service(account_repository: AccountRepository = Depends(get_account_repository)):
+async def get_account_service(account_repository: AccountRepository = Depends(get_account_repository)):
     return AccountService(account_repository)

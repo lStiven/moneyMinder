@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import Mapped
 
+from src.account.constants import ACCOUNT_TYPE_TABLE_NAME
 from src.base.models import BaseModel
-from src.constants import ACCOUNT_TYPE_TABLE_NAME
 
 
 class AccountType(BaseModel):

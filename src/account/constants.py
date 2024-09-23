@@ -1,0 +1,4 @@
+ACCOUNT_TABLE_NAME = "account"
+ACCOUNT_TYPE_TABLE_NAME = "account_type"
+CURRENCY_TABLE_NAME = "currency"
+COUNTRY_TABLE_NAME = "country"

@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import List
 
 from fastapi import HTTPException
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.account.dtos import AccountDto
@@ -24,20 +25,28 @@ class AccountRepository(BaseRepository):
         return [AccountDto.from_model(record) for record in result]
 
     async def create(self, account: AccountDto) -> AccountDto:
-        account_model: Account = account.to_model()
-        record = await self.add_and_commit(account_model)
-        return AccountDto.from_model(record)
+        try:
+            account_model: Account = account.to_model()
+            record = await self.add_and_commit(account_model)
+            return AccountDto.from_model(record)
+        except IntegrityError as e:
+            raise HTTPException(status_code=400, detail=str(e))
 
     async def update(self, account_id: int, account: AccountDto) -> AccountDto:
-        response = await self.get_by_id(Account, account_id)
-        if response.code != account.code:
-            self.account_validation(account)
-        for key, value in account.to_dict().items():
-            if value:
-                setattr(response, key, value)
-        response.updated_at = datetime.now()
-        await self.commit_and_refresh(response)
-        return AccountDto.from_model(response)
+        try:
+            response = await self.get_by_id(Account, account_id)
+            if not response:
+                raise HTTPException(status_code=404, detail="Account not found")
+            if response.code != account.code:
+                self.account_validation(account)
+            for key, value in account.to_dict().items():
+                if value:
+                    setattr(response, key, value)
+            response.updated_at = datetime.now()
+            await self.commit_and_refresh(response)
+            return AccountDto.from_model(response)
+        except IntegrityError as e:
+            raise HTTPException(status_code=400, detail=str(e))
 
     async def delete(self, account_id: int) -> bool:
         account = await self.get_by_id(Account, account_id)

@@ -1,0 +1,7 @@
+SUB_CATEGORY_TABLE_NAME = "sub_category"
+CATEGORY_TABLE_NAME = "category"
+PAYMENT_TABLE_NAME = "payment"
+STATUS_TABLE_NAME = "status"
+LABEL_TABLE_NAME = "label"
+RECORD_LABEL_TABLE_NAME = "record_label"
+RECORD_TABLE_NAME = "record"

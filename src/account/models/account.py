@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Float, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from src.account.constants import ACCOUNT_TABLE_NAME
 from src.base.models import BaseModel
-from src.constants import ACCOUNT_TABLE_NAME
 
 
 class Account(BaseModel):

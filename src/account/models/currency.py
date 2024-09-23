@@ -1,8 +1,8 @@
 from sqlalchemy import Boolean, Column, Float, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from src.account.constants import CURRENCY_TABLE_NAME
 from src.base.models import BaseModel
-from src.constants import CURRENCY_TABLE_NAME
 
 
 class Currency(BaseModel):

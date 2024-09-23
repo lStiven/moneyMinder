@@ -31,6 +31,8 @@ class AccountTypeRepository(BaseRepository):
 
     async def update(self, account_type_id: int, account_type: AccountTypeDto) -> AccountTypeDto:
         response = await self.get_by_id(AccountType, account_type_id)
+        if not response:
+            raise HTTPException(status_code=404, detail="Account Type not found")
         if response.code != account_type.code:
             self.account_type_validation(account_type)
         for key, value in account_type.to_dict().items():
