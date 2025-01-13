@@ -46,7 +46,7 @@ class LabelDto(BaseDtoModel):
         return Label(
             id=self.id,
             name=self.name,
-            code=self.code,
+            code=self.code.upper(),
             color=self.color,
             icon=self.icon,
             is_active=self.is_active,

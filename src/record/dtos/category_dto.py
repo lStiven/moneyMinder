@@ -17,7 +17,7 @@ class CategoryDto(BaseDtoModel):
         return cls(
             id=None,
             name=schema.name,
-            code=schema.code,
+            code=schema.code.upper(),
             icon=schema.icon,
             color=schema.color,
             is_active=None,

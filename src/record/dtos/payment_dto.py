@@ -16,7 +16,7 @@ class PaymentDto(BaseDtoModel):
         return cls(
             id=None,
             name=schema.name,
-            code=schema.code,
+            code=schema.code.upper(),
             icon=schema.icon,
             is_active=None,
             created_at=None,

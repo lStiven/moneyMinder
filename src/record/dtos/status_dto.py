@@ -16,7 +16,7 @@ class StatusDto(BaseDtoModel):
         return cls(
             id=None,
             name=schema.name,
-            code=schema.code,
+            code=schema.code.upper(),
             color=schema.color,
             is_active=None,
             created_at=None,

@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.account.routers import account_router, account_type_router, country_router, currency_router
 from src.auth.router import auth_router
-from src.middleware import RateLimitingMiddleware
 from src.record.routers import (
     category_router,
     label_router,
@@ -16,8 +15,6 @@ from src.record.routers import (
 
 app = FastAPI(swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
 
-# Base.metadata.create_all(bind=engine)
-# app.add_middleware(RateLimitingMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 
 from src.auth.models import TokenRevoke, User
 from src.auth.schemas import UserCreateSchema
@@ -12,6 +13,7 @@ class UserDto(BaseDtoModel):
     email: str
     hashed_password: str
     is_superuser: bool
+    last_login: datetime
 
     @classmethod
     def from_schema(cls, schema: UserCreateSchema):
@@ -21,6 +23,7 @@ class UserDto(BaseDtoModel):
             email=schema.email,
             hashed_password=get_password_hash(schema.password),
             is_superuser=schema.is_superuser,
+            last_login=None,
             is_active=None,
             created_at=None,
             updated_at=None,
@@ -36,6 +39,7 @@ class UserDto(BaseDtoModel):
             email=model.email,
             hashed_password=model.hashed_password,
             is_superuser=model.is_superuser,
+            last_login=None,
             is_active=model.is_active,
             created_at=model.created_at,
             updated_at=model.updated_at,
@@ -64,6 +68,7 @@ class UserDto(BaseDtoModel):
             "email": self.email,
             "password": "",
             "is_superuser": self.is_superuser,
+            "last_login": self.last_login,
             "is_active": self.is_active,
             "created_at": self.created_at,
             "updated_at": self.updated_at,

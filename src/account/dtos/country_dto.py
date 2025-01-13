@@ -16,7 +16,7 @@ class CountryDto(BaseDtoModel):
         return cls(
             id=None,
             name=schema.name,
-            code=schema.code,
+            code=schema.code.upper(),
             phone_code=schema.phone_code,
             is_active=None,
             created_at=None,

@@ -49,7 +49,7 @@ class SubCategoryDto(BaseDtoModel):
         return SubCategory(
             id=self.id,
             name=self.name,
-            code=self.code,
+            code=self.code.upper(),
             icon=self.icon,
             category_id=self.category_id,
             is_active=self.is_active,

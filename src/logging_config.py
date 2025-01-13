@@ -1,11 +1,8 @@
 import logging
 import logging.config
 
-from pythonjsonlogger import jsonlogger
-
 LOG_LEVEL = "DEBUG"
 
-# Configuración del logger
 LOGGING_CONFIG = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -32,19 +29,18 @@ LOGGING_CONFIG = {
     },
     "loggers": {
         "uvicorn.error": {
-            "level": "INFO",
+            "level": "WARNING",
             "handlers": ["console", "file"],
             "propagate": False,
         },
         "uvicorn.access": {
-            "level": "INFO",
+            "level": "WARNING",
             "handlers": ["console", "file"],
             "propagate": False,
         },
     },
 }
 
-# Aplicar la configuración
 logging.config.dictConfig(LOGGING_CONFIG)
 
 

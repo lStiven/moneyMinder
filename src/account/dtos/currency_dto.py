@@ -21,7 +21,7 @@ class CurrencyDto(BaseDtoModel):
         return cls(
             id=None,
             name=schema.name,
-            code=schema.code,
+            code=schema.code.upper(),
             country_id=schema.country_id,
             symbol=schema.symbol,
             exchange_rate=schema.exchange_rate,

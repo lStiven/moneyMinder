@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Optional
 
 from fastapi import HTTPException
@@ -11,6 +11,7 @@ from src.auth.dto import RefreshTokenDto, TokenDto, UserDto
 from src.auth.models import TokenRevoke, User
 from src.auth.utils import create_access_token, decode_token, verify_password
 from src.base.repository import BaseRepository
+from src.logging_config import get_logger
 
 
 class UserRepository(BaseRepository):
@@ -23,7 +24,9 @@ class UserRepository(BaseRepository):
             if user is None or verify_password(password, user.hashed_password) is False:
                 raise HTTPException(status_code=400, detail="Incorrect username or password")
 
-            iat = datetime.now(timezone.utc)
+            iat = datetime.now()
+            user.last_login = iat
+            user: User = await self.commit_and_refresh(user)
             access_token = create_access_token(data={"sub": user.email, "type": TOKEN_TYPE_ACCESS, "iat": iat})
             refresh_token = create_access_token(
                 data={"sub": user.email, "type": TOKEN_TYPE_REFRESH, "iat": iat}, expires_delta=timedelta(days=1)
@@ -62,7 +65,7 @@ class UserRepository(BaseRepository):
             user = await self.get_or_none(User, email=payload["sub"])
             if user is None:
                 raise HTTPException(status_code=400, detail="Invalid token")
-            iat = datetime.now(timezone.utc)
+            iat = datetime.now()
             access_token = create_access_token(data={"sub": user.email, "type": TOKEN_TYPE_ACCESS, "iat": iat})
             return RefreshTokenDto(access_token=access_token, token_type=BEARER_TYPE)
         except ExpiredSignatureError:
@@ -79,7 +82,7 @@ class UserRepository(BaseRepository):
             payload = decode_token(token)
             if payload["type"] != TOKEN_TYPE_ACCESS:
                 raise HTTPException(status_code=400, detail="Invalid token type")
-            user = await self.get_or_none(User, email=payload["sub"])
+            user: User = await self.get_or_none(User, email=payload["sub"])
             if user is None:
                 raise HTTPException(status_code=400, detail="Invalid token")
             revoked_token = await self.get_or_none(TokenRevoke, token=token, user_id=user.id)
@@ -88,7 +91,7 @@ class UserRepository(BaseRepository):
             return UserDto.from_model(user)
         except HTTPException as e:
             raise e
-        except ExpiredSignatureError:
+        except ExpiredSignatureError as e:
             raise HTTPException(status_code=400, detail="Token expired")
         except JWTError as e:
             raise HTTPException(status_code=400, detail=str(e))

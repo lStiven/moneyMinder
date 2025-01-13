@@ -15,6 +15,7 @@ class User(BaseModel):
     email: Mapped[str] = Column(String, unique=True)
     hashed_password: Mapped[str] = Column(String)
     is_superuser: Mapped[bool] = Column(Boolean, default=False)
+    last_login: Mapped[datetime] = Column(DateTime, server_default=func.now())
 
     # accounts = relationship("Account", back_populates="user")
 
